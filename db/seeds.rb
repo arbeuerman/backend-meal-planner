@@ -7,14 +7,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Meal.destroy_all
+Meal.reset_pk_sequence
+
+RecipeIngredient.destroy_all
+RecipeIngredient.reset_pk_sequence
+
 Recipe.destroy_all
 Recipe.reset_pk_sequence
 
 Ingredient.destroy_all
 Ingredient.reset_pk_sequence
 
-RecipeIngredient.destroy_all
-RecipeIngredient.reset_pk_sequence
 
 def request_api(url)
     response = Excon.get(
@@ -95,20 +100,52 @@ end
 def create_recipe_ingredients(ingredients, recipe)
     ingredients.each do |ingredient|
         food = nil
-        if ingredient == "Carrot"
+        ingredient = ingredient.downcase
+        if ingredient == "carrot"
             food = Ingredient.find_by(name: "carrots")
-        elsif ingredient == "Red Onion"
+        elsif ingredient == "red onion"
             food = Ingredient.find_by(name: "red onions")
-        elsif ingredient == "Blackberrys"
-            food = Ingredient.find_by(name: "blackberries")        
+        elsif ingredient == "blackberrys"
+            food = Ingredient.find_by(name: "blackberries")   
+        elsif ingredient.include? "butter"     
+            food = Ingredient.find_by(name: "butter")
+        elsif ingredient.include? "green chili"     
+            food = Ingredient.find_by(name: "green chilli")
+        elsif ingredient == "red chili powder"     
+            food = Ingredient.find_by(name: "red chilli powder")
+        elsif ingredient == "all spice"     
+            food = Ingredient.find_by(name: "allspice")    
+        elsif ingredient == "spring onion"
+            food = Ingredient.find_by(name: "spring onions")
+        elsif ingredient == "chicken thigh"
+            food = Ingredient.find_by(name: "chicken")
+        elsif ingredient == "gruyere cheese"
+            food = Ingredient.find_by(name: "cheese")
+        elsif ingredient == "tarragon"
+            food = Ingredient.find_by(name: "tarragon leaves")
+        elsif ingredient == "potato"
+            food = Ingredient.find_by(name: "potatoes")
+        elsif ingredient == "clove"
+            food = Ingredient.find_by(name: "cloves")
+        elsif ingredient == "tomato purée"
+            food = Ingredient.find_by(name: "tomato puree")
+        elsif ingredient == "red chili"     
+            food = Ingredient.find_by(name: "red chilli")
+        elsif ingredient == "harissa"     
+            food = Ingredient.find_by(name: "harissa spice")
+        elsif ingredient == "vermicelli"     
+            food = Ingredient.find_by(name: "rice vermicelli")
+        elsif ingredient == "self raising flour"     
+            food = Ingredient.find_by(name: "self-raising flour")
         else
             food = Ingredient.find_by(name: ingredient.downcase)
         end
-        # byebug
+
         if food
             RecipeIngredient.create(recipe_id: recipe.id, ingredient_id: food.id)
         else
             puts "#{ingredient} does not have a corresponding food in the foods table"
+            byebug
         end
     end
 end
@@ -121,15 +158,18 @@ letters.each do |letter|
             
             recipe_entry = Recipe.create(name: recipe["strMeal"], 
             instructions: recipe["strInstructions"],
-            image: recipe["strMealThumb"] )
+            image: recipe["strMealThumb"],
+            typeOfMeal: recipe["strCategory"] )
 
             #loop through all the ingredients of the recipe
             puts "getting recipe ingredients for #{recipe["strMeal"]}"
             ingredients = get_ingredients_for_recipe(recipe)
-            create_recipe_ingredients(ingredients, recipe_entry)
-            puts "done getting recipe for #{recipe["strMeal"]}"
-            #create a RecipeIngredient for each ingredient if it is in the ingredients table
             
+            #create a RecipeIngredient for each ingredient if it is in the ingredients table
+            create_recipe_ingredients(ingredients, recipe_entry)
+            # puts "done getting recipe for #{recipe["strMeal"]}"
+            
+            #create a Meal for each of these ingredients
         end
     end
 end
@@ -141,6 +181,16 @@ puts "recipes done"
 #             meal: recipe["strCategory"], 
 #             cuisine: recipe["strArea"], instructions: recipe["strInstructions"], completed: true,
 #             api_id: recipe["idMeal"], image_url: recipe["strMealThumb"] )
+
+puts "getting meals"
+5.times do
+
+    recipe_ingredient = RecipeIngredient.all.sample
+    recipe = Recipe.find_by(id: recipe_ingredient.recipe_id)
+    Meal.create(typeOfMeal: recipe.typeOfMeal, recipe_ingredients_id: recipe_ingredient.id, date: %w(Monday Tuesday Wednesday Thursday Friday).sample)
+    byebug
+
+end
 
 
 
