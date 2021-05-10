@@ -145,7 +145,6 @@ def create_recipe_ingredients(ingredients, recipe)
             RecipeIngredient.create(recipe_id: recipe.id, ingredient_id: food.id)
         else
             puts "#{ingredient} does not have a corresponding food in the foods table"
-            byebug
         end
     end
 end
@@ -184,12 +183,8 @@ puts "recipes done"
 
 puts "getting meals"
 5.times do
-
-    recipe_ingredient = RecipeIngredient.all.sample
-    recipe = Recipe.find_by(id: recipe_ingredient.recipe_id)
-    Meal.create(typeOfMeal: recipe.typeOfMeal, recipe_ingredients_id: recipe_ingredient.id, date: %w(Monday Tuesday Wednesday Thursday Friday).sample)
-    byebug
-
+    recipe = Recipe.all.sample
+    Meal.create(typeOfMeal: recipe.typeOfMeal, recipe_id: recipe.id, date: %w(Monday Tuesday Wednesday Thursday Friday).sample)
 end
 
 

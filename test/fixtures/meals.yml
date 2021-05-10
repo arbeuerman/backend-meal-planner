@@ -2,10 +2,10 @@
 
 one:
   typeOfMeal: MyString
-  recipeingredients: one
+  recipe: one
   date: MyString
 
 two:
   typeOfMeal: MyString
-  recipeingredients: two
+  recipe: two
   date: MyString
