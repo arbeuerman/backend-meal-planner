@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.limit(params[:limit]).offset(params[:offset])
 
     render json: @recipes
   end
