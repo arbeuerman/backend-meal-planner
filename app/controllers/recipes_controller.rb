@@ -13,6 +13,12 @@ class RecipesController < ApplicationController
     render json: @recipe
   end
 
+  def ingredients
+    @recipe = Recipe.find(params[:recipe_id])
+    @ingredients = @recipe.ingredients
+    render json: @ingredients
+  end
+
   # POST /recipes
   def create
     @recipe = Recipe.new(recipe_params)

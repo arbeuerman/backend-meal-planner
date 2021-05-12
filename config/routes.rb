@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # resources :meals
   get '/meals', to: 'meals#index', as: 'meals'
-  patch '/meals/:id', to: 'meals#show', as: 'meal'
+  patch '/meals/:id', to: 'meals#update', as: 'meal'
   resources :recipe_ingredients
   # resources :recipes, only: [:index]
   get '/recipes/limit=:limit/offset=:offset', to: 'recipes#index', as: 'recipes'
