@@ -3,10 +3,7 @@ Rails.application.routes.draw do
   get '/meals', to: 'meals#index', as: 'meals'
   patch '/meals/:id', to: 'meals#update', as: 'meal'
   delete '/meals/:id', to: 'meals#destroy'
-<<<<<<< HEAD
   
-=======
->>>>>>> fc8dc0369c3640e495da43c7db84c13b8e222919
   resources :recipe_ingredients
   
   # resources :recipes, only: [:index]
