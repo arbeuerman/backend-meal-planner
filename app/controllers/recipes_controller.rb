@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :update, :destroy]
+  before_action :set_recipe, only: [:show, :update, :destroy, :ingredients]
 
   # GET /recipes
   def index
@@ -9,10 +9,6 @@ class RecipesController < ApplicationController
   end
 
   def ingredients
-    @recipe = Recipe.find(params[:recipe_id])
-    # @recipe = Recipe.find(params[:recipe_id])
-    # @recipe = Recipe.find_by(id: params[:recipe_id])
-  #  byebug
     @ingredients = @recipe.ingredients
     render json: @ingredients
   end
