@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  
   # resources :meals
   get '/meals', to: 'meals#index', as: 'meals'
   patch '/meals/:id', to: 'meals#update', as: 'meal'
+  delete '/meals/:id', to: 'meals#destroy'
   
   resources :recipe_ingredients
   
