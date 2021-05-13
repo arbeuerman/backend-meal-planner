@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get '/recipes/limit=:limit/offset=:offset', to: 'recipes#index', as: 'recipes'
   get '/recipes/:id', to: 'recipes#show', as: 'recipe'
   get '/recipes/:recipe_id/ingredients', to:'recipes#ingredients'
+  delete '/recipes/:id', to: 'recipes#destroy'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
