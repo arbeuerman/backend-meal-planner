@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
   end
 
   def ingredients
-    @recipe = Recipe.find_by(params[:recipe_id])
+    @recipe = Recipe.find(params[:recipe_id])
     # @recipe = Recipe.find(params[:recipe_id])
     # @recipe = Recipe.find_by(id: params[:recipe_id])
   #  byebug

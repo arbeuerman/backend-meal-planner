@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   # resources :recipes, only: [:index]
   get '/recipes/limit=:limit/offset=:offset', to: 'recipes#index', as: 'recipes'
   get '/recipes/:id', to: 'recipes#show', as: 'recipe'
-  get '/recipes/:recipes_id/ingredients', to:'recipes#ingredients'
+  get '/recipes/:recipe_id/ingredients', to:'recipes#ingredients'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
