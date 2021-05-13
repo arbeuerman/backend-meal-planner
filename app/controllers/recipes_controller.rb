@@ -8,6 +8,16 @@ class RecipesController < ApplicationController
     render json: @recipes
   end
 
+  def ingredients
+    @recipe = Recipe.find_by(params[:recipe_id])
+    # @recipe = Recipe.find(params[:recipe_id])
+    # @recipe = Recipe.find_by(id: params[:recipe_id])
+  #  byebug
+    @ingredients = @recipe.ingredients
+    render json: @ingredients
+  end
+
+
   # GET /recipes/1
   def show
     render json: @recipe

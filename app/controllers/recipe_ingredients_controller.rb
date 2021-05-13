@@ -4,9 +4,10 @@ class RecipeIngredientsController < ApplicationController
   # GET /recipe_ingredients
   def index
     @recipe_ingredients = RecipeIngredient.all
-
     render json: @recipe_ingredients
   end
+
+  
 
   # GET /recipe_ingredients/1
   def show
